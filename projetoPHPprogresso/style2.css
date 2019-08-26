@@ -1,0 +1,5 @@
+.percentbar { background: rgba(189, 189, 189, 1); border:1px solid #666666; height:20px; }
+.progressbar { background: rgba(39, 190, 84, 1); height: 20px; }
+.timebar { background: rgba(255, 0, 0, 0.79); height: 20px; }
+
+.bigbox { border:1px solid #666666;}
