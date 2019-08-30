@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="style4.css"> 
+		<link rel="stylesheet" href="style7.css"> 
 		<title>Página de acompanhamento de projetos</title>
 		
 	</head>
@@ -12,6 +12,8 @@
 			<h1><center>Projetos ativos</center></h1>
 		</div>
 		<div class='pageitself'>
+			<br>
+			<div id="chart_div"><center></center></div>
 			<?php
 				// Variaveis comuns -- Não modificar
 				$arrayObjetoAtual = array ();
@@ -24,7 +26,7 @@
 				$ArrayProjetos = array ("1", "2", "3", "4");
 				$idP = array(1, 2, 3, 4);
 				$nomeProjeto = array("Projeto A", "Projeto B", "Projeto C", "Projeto D");
-				$equipes = array ("Sol", "Lua", "Vulcano", "Lua");
+				$equipes = array ("Sol", "Lua", "Vulcano", "Sol");
 				$equipespontos = array ("Sol"=>0, "Lua"=>0, "Vulcano"=>0,);
 				$dificuldade = array (1, 2, 3, 4);
 				$valueProgress = array(70, 80, 100, 100);
@@ -114,12 +116,13 @@
 					echo "$htmldivresult $htmldivresult2 $htmldivresult3";
 					echo "Progresso atual: $percent","%";
 					echo "$spaces Fase do projeto: $projectphase","/","$projectlastphase<br>";	
-					
+					$arrayObjetoAtual['timeremaining'] = $timeremaining;
+
 					$timeremaining = round($timeremaining);
 					if ($divcwidth > $divbwidth && $divcwidth == 800) {
 						$timeremaining = abs($timeremaining);
 						$arrayObjetoAtual['atrasado'] = 1;
-						
+
 						echo "Em atraso por: $timeremaining"," dias <br> Link do projeto: $HrefLink <br><br></div>";
 					}
 					if ($divcwidth > $divbwidth && $divcwidth < 800) {
@@ -132,7 +135,7 @@
 
 					if ($divcwidth <= $divbwidth && $divbwidth == 800) {
 						$arrayObjetoAtual['antecedencia'] = 1;
-						
+
 					 	echo "Completado com antecedencia: $timeremaining"," dias antes! <br> Link do projeto: $HrefLink <br><br></div>";
 					}
 				}
@@ -158,9 +161,12 @@
 					if ($arrayObjetoAtual['datafinalizada'] != $finisheddate[$ProjectCounter]) {
 						$finisheddate[$ProjectCounter] = $arrayObjetoAtual['datafinalizada'];
 						$timeleftcompletedarray[$ProjectCounter] = $arrayObjetoAtual['timewhencompleted'];
+						$timeremaining = intval($arrayObjetoAtual['timeremaining']);
+						$timeremaining = $timeremaining/10;
 						$team = strval($equipes[$ProjectCounter]);
 						if ($arrayObjetoAtual['atrasado'] == 1) {
 							$math2 = -40/intval($dificuldade[$ProjectCounter]);
+							$math2 = $math2+$timeremaining;
 							$result = strval($math2);
 							$equipespontos[$team] = intval($equipespontos[$team])+intval($math2);
 
@@ -168,6 +174,7 @@
 						}
 						elseif ($arrayObjetoAtual['antecedencia'] == 1) {
 							$math2 = 10*intval($dificuldade[$ProjectCounter]);
+							$math2 = $math2+$timeremaining;
 							$result = strval($math2);
 							$equipespontos[$team] = intval($equipespontos[$team])+intval($math2);
 							echo "<div class='bigbox'>",$result," Pontos adicionados a equipe: ",$equipes[$ProjectCounter],"</div>";
@@ -176,12 +183,19 @@
 
 					$ProjectCounter++;
 				}
-				echo "<div class=boxAfterLoad><center><h2>Classificação das equipes:</h2></center>";
+				echo "<div class=boxAfterLoad><center><h2>Classificação das equipes em Lista (sem tabela):</h2></center>";
 				echo "Equipe Lua: ",$equipespontos["Lua"];
 				echo "<br>Equipe Sol: ",$equipespontos["Sol"];
 				echo "<br>Equipe Vulcano: ",$equipespontos["Vulcano"];
 				echo "</div><br><br>"
 			?>
 		<div>
+		<script type="text/javascript">
+			var luapont = <?php echo $equipespontos["Lua"]?>;
+			var solpont = <?php echo $equipespontos["Sol"]?>;
+			var vulcanopont = <?php echo $equipespontos["Vulcano"]?>;
+		</script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="js/graph.js"></script>
 	</body>
 </html>
