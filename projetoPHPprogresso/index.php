@@ -29,10 +29,10 @@
 				$equipes = array ("Sol", "Lua", "Vulcano", "Sol");
 				$equipespontos = array ("Sol"=>0, "Lua"=>0, "Vulcano"=>0,);
 				$dificuldade = array (1, 2, 3, 4);
-				$valueProgress = array(70, 80, 100, 100);
+				$valueProgress = array(90, 80, 100, 100);
 				$finishedBool = array (0, 0, 0, 0);
-				$startprojetodate = array ("2019-07-30", "2019-06-13", "2019-07-27", "2019-06-20");
-				$endprojetodate = array ("2019-09-30", "2019-07-5", "2019-11-30", "2019-09-6");
+				$startprojetodate = array ("2019-11-30", "2019-06-13", "2019-07-27", "2019-06-20");
+				$endprojetodate = array ("2019-12-30", "2019-07-5", "2019-11-30", "2019-09-6");
 				$finisheddate = array (0, 0, 0, 0);
 				$timeleftcompletedarray = array (0, 0, 0, 0);
 				$faseatualprojeto = array (1, 3, 5, 8);
@@ -60,6 +60,9 @@
 					$startDateConverted = strtotime($arrayObjetoAtual['inicio']);
 					$timedifftotal = ($endDateConverted - $startDateConverted);
 					$numberDaystotal = $timedifftotal/86400;
+					if ($numberDaystotal == 0){
+						$numberDaystotal = 1;
+					}
 					$timedifftoday = ($endDateConverted - $datacorretahoje);
 					$timeremaining = $timedifftoday/86400;
 					$numberDayscurrent = $numberDaystotal - $timeremaining;
@@ -101,20 +104,28 @@
 						}
 						$arrayObjetoAtual['completo'] = 1;	
 					}
-					if ($divcwidth > 799) {
+					elseif ($divcwidth > 799) {
 						if ($arrayObjetoAtual['completo'] == 0) {
 							$arrayObjetoAtual['datafinalizada'] = $dataHoje;
 							$arrayObjetoAtual['timewhencompleted'] = $timeleft;
 						}
 						$arrayObjetoAtual['completo'] = 1;	
 					}
+					if ($startDateConverted > $datacorretahoje){
+						$percent = ($arrayObjetoAtual['progresso'] * 100) / $max;
+						$divstringtempo = "0px";
+					}
 
 					//Output final -- Cautela ao modificar
+					$datainicioprint = $arrayObjetoAtual['inicio'];
+					$datafimprint = $arrayObjetoAtual['final'];
 					$htmldivresult = "<br><br><br><div class='bigbox'><br><b>$projectTitle</b> <br><div class='percentbar' style='width:$divstringbase'>";
 					$htmldivresult2 = "<div class='progressbar' style='width:$divstringprogresso'>";
 					$htmldivresult3 = "<div class='timebar' style='width:$divstringtempo'> </div> </div></div><br>";
 					echo "$htmldivresult $htmldivresult2 $htmldivresult3";
 					echo "Progresso atual: $percent","%";
+					echo "<br><br>Iniciado em: $datainicioprint";
+					echo "<br>Finalizado em: $datafimprint";
 					echo "$spaces Fase do projeto: $projectphase","/","$projectlastphase<br>";	
 					$arrayObjetoAtual['timeremaining'] = $timeremaining;
 
@@ -123,20 +134,20 @@
 						$timeremaining = abs($timeremaining);
 						$arrayObjetoAtual['atrasado'] = 1;
 
-						echo "Em atraso por: $timeremaining"," dias <br> Link do projeto: $HrefLink <br><br></div>";
+						echo "Em atraso por: $timeremaining"," dias <br><br> Link do projeto: $HrefLink <br><br></div>";
 					}
 					if ($divcwidth > $divbwidth && $divcwidth < 800) {
 						$timeremaining = abs($timeremaining);
-						echo "Um pouco fora do tempo esperado."," Tempo restante: $timeremaining"," dias <br> Link do projeto: $HrefLink <br><br></div>";
+						echo "Um pouco fora do tempo esperado."," Tempo restante: $timeremaining"," dias <br><br> Link do projeto: $HrefLink <br><br></div>";
 					}
 					if ($divcwidth <= $divbwidth && $divbwidth < 800) {
-					 	echo "Tempo restante: $timeremaining"," dias <br> Link do projeto: $HrefLink <br><br></div>";
+					 	echo "Tempo restante: $timeremaining"," dias <br><br> Link do projeto: $HrefLink <br><br></div>";
 					}
 
 					if ($divcwidth <= $divbwidth && $divbwidth == 800) {
 						$arrayObjetoAtual['antecedencia'] = 1;
 
-					 	echo "Completado com antecedencia: $timeremaining"," dias antes! <br> Link do projeto: $HrefLink <br><br></div>";
+					 	echo "Completado com antecedencia: $timeremaining"," dias antes! <br><br> Link do projeto: $HrefLink <br><br></div>";
 					}
 				}
 
