@@ -19,21 +19,21 @@
 				$arrayObjetoAtual = array ();
 				$dataHoje = date("Y-m-d");
 				$datacorretahoje = strtotime($dataHoje);
-				$ProjectCounter = 1;
-				$ArrayProjetos = array ("0");
-				$idP = array(0);
-				$nomeProjeto = array("0");
-				$equipes = array ("0");
+				$ProjectCounter = 0;
+				$ArrayProjetos = array ();
+				$idP = array();
+				$nomeProjeto = array();
+				$equipes = array ();
 				$equipespontos = array ("Sol"=>0, "Lua"=>0, "Vulcano"=>0,); //Modificar nomes disso aqui manualmente
-				$dificuldade = array (0);
-				$valueProgress = array(0);
-				$finishedBool = array (0);
-				$startprojetodate = array ("0");
-				$endprojetodate = array ("0");
-				$finisheddate = array (0);
-				$timeleftcompletedarray = array (0);
-				$faseatualprojeto = array (0);
-				$fasefinalprojeto = array (0);
+				$dificuldade = array ();
+				$valueProgress = array();
+				$finishedBool = array ();
+				$startprojetodate = array ();
+				$endprojetodate = array ();
+				$finisheddate = array ();
+				$timeleftcompletedarray = array ();
+				$faseatualprojeto = array ();
+				$fasefinalprojeto = array ();
 				$spaces = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
 
@@ -55,6 +55,7 @@
 					timeleftcompletedarray.push( $SuaDatabaseDeIDs[$dbID]);
 					faseatualprojeto.push( $SuaDatabaseDeIDs[$dbID]);
 					fasefinalprojeto.push( $SuaDatabaseDeIDs[$dbID]);
+					$dbID++
 				}
 
 
